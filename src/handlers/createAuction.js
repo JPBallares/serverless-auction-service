@@ -1,7 +1,16 @@
 async function createAuction(event, context) {
+  const { title } = JSON.parse(event.body); // get the title from the data
+
+  // create an auction object
+  const auction = {
+    title,
+    status: 'OPEN',
+    createdAt: Date.now()
+  }
+
   return {
     statusCode: 200,
-    body: JSON.stringify({ event, context }),
+    body: JSON.stringify({ auction }),
   };
 }
 
