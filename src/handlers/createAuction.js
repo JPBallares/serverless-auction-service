@@ -16,7 +16,7 @@ async function createAuction(event, context) {
 
   // store it in the database
   await db.put({
-    TableName: 'AuctionsTable',
+    TableName: process.env.AUCTIONS_TABLE_NAME,
     Item: auction,
   }).promise(); // use promises (async/await) instead of default callbacks
 

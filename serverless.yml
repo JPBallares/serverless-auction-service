@@ -13,13 +13,15 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: ap-southeast-1
+  environment:
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
   iamRoleStatements:
     - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
 
 # declares that we are defining AWS resources
 resources:
   Resources: # the actual resources section
-    ActionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
+    AuctionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
 
 # The configuration for the functions
 functions:
@@ -29,3 +31,8 @@ functions:
       - http:
           method: POST
           path: /auctions
+
+custom:
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn: !GetAtt AuctionsTable.Arn
