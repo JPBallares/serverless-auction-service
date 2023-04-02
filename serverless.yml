@@ -14,26 +14,12 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ap-southeast-1
   iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:PutItem
-      Resource:
-        - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/AuctionsTable
+    - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
 
 # declares that we are defining AWS resources
-resources: 
+resources:
   Resources: # the actual resources section
-    AuctionsTable: # the name of our DynamoDB table
-      Type: AWS::DynamoDB::Table # specifies that we are defining a DynamoDB table
-      Properties: # properties for the table
-        TableName: AuctionsTable # name of the table
-        BillingMode: PAY_PER_REQUEST # sets the billing mode to "pay-per-request", which means we only pay for what we use
-        AttributeDefinitions: # defines the attributes for the table
-          - AttributeName: id # defines the "id" attribute
-            AttributeType: S # specifies that the "id" attribute is a string
-        KeySchema: # defines the primary key for the table
-          - AttributeName: id # specifies that the "id" attribute is the primary key
-            KeyType: HASH # specifies that the "id" attribute is a partition key
+    ActionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
 
 # The configuration for the functions
 functions:

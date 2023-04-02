@@ -1,0 +1,11 @@
+AuctionsTable: # the name of our DynamoDB table
+  Type: AWS::DynamoDB::Table # specifies that we are defining a DynamoDB table
+  Properties: # properties for the table
+    TableName: AuctionsTable # name of the table
+    BillingMode: PAY_PER_REQUEST # sets the billing mode to "pay-per-request", which means we only pay for what we use
+    AttributeDefinitions: # defines the attributes for the table
+      - AttributeName: id # defines the "id" attribute
+        AttributeType: S # specifies that the "id" attribute is a string
+    KeySchema: # defines the primary key for the table
+      - AttributeName: id # specifies that the "id" attribute is the primary key
+        KeyType: HASH # specifies that the "id" attribute is a partition key
