@@ -6,7 +6,7 @@ async function createAuction(event, context) {
     title,
     status: 'OPEN',
     createdAt: Date.now()
-  }
+  };
 
   return {
     statusCode: 201,
