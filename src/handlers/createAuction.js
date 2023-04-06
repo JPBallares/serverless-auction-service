@@ -13,7 +13,10 @@ async function createAuction(event, context) {
     id: uuid(),
     title,
     status: 'OPEN',
-    createdAt: Date.now()
+    createdAt: Date.now(),
+    highestBid: {
+      amount: 0,
+    },
   };
 
   // store it in the database
